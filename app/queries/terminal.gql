@@ -1,0 +1,23 @@
+fragment TerminalFields on Terminal {
+    id
+    activo
+    puntoId
+    clavePublica
+    createdAt
+    updatedAt
+}
+
+query GetTerminalesByPunto($puntoId: ID!) {
+    terminalesByPunto(puntoId: $puntoId) {
+        ...TerminalFields
+    }
+}
+
+query GetTerminal($id: ID!) {
+    terminal(id: $id) {
+        ...TerminalFields
+        votantes {
+            ...VotanteFields
+        }
+    }
+}

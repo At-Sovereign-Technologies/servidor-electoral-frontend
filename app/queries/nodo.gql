@@ -1,0 +1,19 @@
+fragment NodoFields on Nodo {
+    id
+    activo
+    eleccionId
+    createdAt
+    updatedAt
+}
+
+query GetNodosByEleccion($eleccionId: ID!) {
+    nodosByEleccion(eleccionId: $eleccionId) {
+        ...NodoFields
+    }
+}
+
+query GetNodo($id: ID!) {
+    nodo(id: $id) {
+        ...NodoFields
+    }
+}

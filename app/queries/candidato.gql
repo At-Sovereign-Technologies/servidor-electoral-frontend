@@ -1,0 +1,22 @@
+fragment CandidatoFields on Candidato {
+    id
+    nombre
+    documento
+    partido
+    fotoUrl
+    eleccionId
+    createdAt
+    updatedAt
+}
+
+query GetCandidatosByEleccion($eleccionId: ID!) {
+    candidatosByEleccion(eleccionId: $eleccionId) {
+        ...CandidatoFields
+    }
+}
+
+query GetCandidato($id: ID!) {
+    candidato(id: $id) {
+        ...CandidatoFields
+    }
+}

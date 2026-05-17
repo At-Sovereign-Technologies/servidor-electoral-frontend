@@ -1,0 +1,28 @@
+fragment PuntoFields on Punto {
+    id
+    nombre
+    latitud
+    longitud
+    activo
+    eleccionId
+    createdAt
+    updatedAt
+}
+
+query GetPuntosByEleccion($eleccionId: ID!) {
+    puntosByEleccion(eleccionId: $eleccionId) {
+        ...PuntoFields
+    }
+}
+
+query GetPunto($id: ID!) {
+    punto(id: $id) {
+        ...PuntoFields
+        jurados {
+            ...JuradoFields
+        }
+        terminales {
+            ...TerminalFields
+        }
+    }
+}

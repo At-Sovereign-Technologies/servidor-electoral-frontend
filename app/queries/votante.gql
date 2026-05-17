@@ -1,0 +1,20 @@
+fragment VotanteFields on Votante {
+    id
+    nombre
+    documento
+    terminalId
+    createdAt
+    updatedAt
+}
+
+query GetVotantesByTerminal($terminalId: ID!) {
+    votantesByTerminal(terminalId: $terminalId) {
+        ...VotanteFields
+    }
+}
+
+query GetVotante($id: ID!) {
+    votante(id: $id) {
+        ...VotanteFields
+    }
+}

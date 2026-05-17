@@ -1,0 +1,30 @@
+fragment EleccionFields on Eleccion {
+    id
+    nombre
+    tipoEleccion
+    fechaInicio
+    fechaFin
+    createdAt
+    updatedAt
+}
+
+query GetElecciones {
+    elecciones {
+        ...EleccionFields
+    }
+}
+
+query GetEleccion($id: ID!) {
+    eleccion(id: $id) {
+        ...EleccionFields
+        candidatos {
+            ...CandidatoFields
+        }
+        puntos {
+            ...PuntoFields
+        }
+        nodos {
+            ...NodoFields
+        }
+    }
+}

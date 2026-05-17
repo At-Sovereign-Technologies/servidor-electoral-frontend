@@ -1,0 +1,21 @@
+fragment JuradoFields on Jurado {
+    id
+    nombre
+    documento
+    usuario
+    puntoId
+    createdAt
+    updatedAt
+}
+
+query GetJuradosByPunto($puntoId: ID!) {
+    juradosByPunto(puntoId: $puntoId) {
+        ...JuradoFields
+    }
+}
+
+query GetJurado($id: ID!) {
+    jurado(id: $id) {
+        ...JuradoFields
+    }
+}
