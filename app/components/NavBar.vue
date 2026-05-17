@@ -1,7 +1,7 @@
 <template>
     <nav class="flex justify-between items-center px-10 py-6 border-b bg-white" role="navigation" aria-label="main navigation">
         <div class="flex items-center">
-            <a class="block flex flex-col leading-tight text-left" href="/">
+            <a class="flex flex-col leading-tight text-left" href="/">
                 <span class="text-xl font-bold text-gray-800">Sello Legítimo</span>
                 <span class="text-red-500 text-xs font-semibold tracking-wide">SISTEMA ELECTORAL COLOMBIANO</span>
             </a>
