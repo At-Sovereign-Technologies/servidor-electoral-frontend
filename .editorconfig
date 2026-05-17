@@ -1,0 +1,35 @@
+# .editorconfig
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Default: 4 spaces
+indent_style = space
+indent_size = 4
+
+# Nuxt / Vue / JS / TS files
+[*.{js,ts,vue,mjs,cjs}]
+indent_style = space
+indent_size = 4
+
+# GraphQL files
+[*.{graphql,gql}]
+indent_style = space
+indent_size = 4
+
+# JSON/YAML (common in Nuxt projects)
+[*.json]
+indent_style = space
+indent_size = 4
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 4
+
+# Markdown
+[*.md]
+trim_trailing_whitespace = false
