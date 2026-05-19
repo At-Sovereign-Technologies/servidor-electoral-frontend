@@ -8,5 +8,14 @@ export default defineNuxtConfig({
         public: {
             GQL_HOST: process.env.GQL_HOST || 'http://localhost:8080/query'
         }
+    },
+
+    'graphql-client': {
+        clients: {
+            default: {
+                host: process.env.GQL_HOST || 'http://localhost:8080/query',
+                schema: 'queries/schema.graphql'
+            }
+        }
     }
 })
