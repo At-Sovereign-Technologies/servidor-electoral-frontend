@@ -1,24 +1,23 @@
-FROM node:22-alpine
+FROM node:22
 
 WORKDIR /app
 
-# Needed for some native deps occasionally used by Nuxt/Vite
-RUN apk add --no-cache libc6-compat
-
-# Install dependencies first for better layer caching
+# Copiar archivos de dependencias primero (mejor uso del cache de capas)
 COPY package*.json ./
 
-RUN npm ci
+# Instalar dependencias
+RUN npm install
 
-# Copy source
+# Copiar el resto del código fuente
 COPY . .
 
-# Nuxt dev server
+# Exponer el puerto de desarrollo de Nuxt
 EXPOSE 3000
 
-# Required so Nuxt listens outside container
-ENV HOST=0.0.0.0
-ENV PORT=3000
+# Variables de entorno para desarrollo
 ENV NODE_ENV=development
+ENV NUXT_HOST=0.0.0.0
+ENV NUXT_PORT=3000
 
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]
+# Comando de desarrollo con hot reload
+CMD ["npm", "run", "dev"]
