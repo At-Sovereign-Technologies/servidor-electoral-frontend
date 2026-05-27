@@ -17,3 +17,16 @@ query GetNodo($id: ID!) {
         ...NodoFields
     }
 }
+
+mutation CrearNodo($eleccionId: ID!) {
+    crearNodo(eleccionId: $eleccionId) {
+        ...NodoFields
+    }
+}
+
+mutation GenerarSecretoNodo($nodoId: ID!) {
+    generarSecretoNodo(nodoId: $nodoId) {
+        nodoId
+        secreto
+    }
+}

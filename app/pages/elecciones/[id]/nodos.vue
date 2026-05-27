@@ -1,13 +1,16 @@
 <script setup lang="ts">
 const route = useRoute();
 const eleccionId = route.params.id as string;
+const config = useRuntimeConfig();
 
-const { data, pending, error } = await useAsyncGql({
+const { data, pending, error, refresh } = await useAsyncGql({
     operation: 'GetNodosByEleccion',
     variables: { eleccionId }
 });
 
 const filterActivo = ref<'' | 'true' | 'false'>('');
+const creandoNodo = ref(false);
+const errorCrearNodo = ref('');
 const currentPage = ref(1);
 const pageSize = 10;
 
@@ -29,6 +32,46 @@ const paginatedNodos = computed(() => {
 });
 
 watch(filterActivo, () => { currentPage.value = 1; });
+
+async function crearNodo() {
+    creandoNodo.value = true;
+    errorCrearNodo.value = '';
+
+    try {
+        const response = await $fetch<{
+            data?: { crearNodo?: { id: string } }
+            errors?: Array<{ message: string }>
+        }>(config.public.GQL_HOST, {
+            method: 'POST',
+            body: {
+                query: `
+                    mutation CrearNodo($eleccionId: ID!) {
+                        crearNodo(eleccionId: $eleccionId) {
+                            id
+                        }
+                    }
+                `,
+                variables: { eleccionId }
+            }
+        });
+
+        if (response.errors?.length) {
+            throw new Error(response.errors[0].message);
+        }
+
+        if (!response.data?.crearNodo) {
+            throw new Error('No fue posible crear el nodo.');
+        }
+
+        location.reload();
+    } catch (mutationError) {
+        errorCrearNodo.value = mutationError instanceof Error
+            ? mutationError.message
+            : 'Error inesperado al crear el nodo.';
+    } finally {
+        creandoNodo.value = false;
+    }
+}
 </script>
 
 <template>
@@ -42,6 +85,21 @@ watch(filterActivo, () => { currentPage.value = 1; });
 
         <div class="max-w-6xl w-full mx-auto">
             <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
+                    <p class="text-sm text-gray-600">
+                        Administra nodos de esta elección.
+                    </p>
+                    <button
+                        class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition font-medium text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+                        :disabled="creandoNodo"
+                        @click="crearNodo">
+                        {{ creandoNodo ? 'Creando...' : 'Crear nodo' }}
+                    </button>
+                </div>
+                <p v-if="errorCrearNodo" class="text-sm text-red-600 mb-4">
+                    {{ errorCrearNodo }}
+                </p>
+
                 <!-- Filters -->
                 <div class="flex flex-col md:flex-row gap-4 mb-6">
                     <select v-model="filterActivo" aria-label="Filtrar por estado"

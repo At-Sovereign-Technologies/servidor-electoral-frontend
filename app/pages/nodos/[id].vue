@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const id = route.params.id as string;
+const config = useRuntimeConfig();
 
 const { data, pending, error } = await useAsyncGql({
     operation: 'GetNodo',
@@ -8,6 +9,58 @@ const { data, pending, error } = await useAsyncGql({
 });
 
 const nodo = computed(() => data.value?.nodo);
+
+type NodoSecretoResponse = {
+    generarSecretoNodo: {
+        nodoId: string
+        secreto: string
+    }
+}
+
+const generandoSecreto = ref(false);
+const errorSecreto = ref('');
+const secretoGenerado = ref<NodoSecretoResponse['generarSecretoNodo'] | null>(null);
+
+async function generarSecretoNodo() {
+    generandoSecreto.value = true;
+    errorSecreto.value = '';
+
+    try {
+        const response = await $fetch<{
+            data?: NodoSecretoResponse
+            errors?: Array<{ message: string }>
+        }>(config.public.GQL_HOST, {
+            method: 'POST',
+            body: {
+                query: `
+                    mutation GenerarSecretoNodo($nodoId: ID!) {
+                        generarSecretoNodo(nodoId: $nodoId) {
+                            nodoId
+                            secreto
+                        }
+                    }
+                `,
+                variables: { nodoId: id }
+            }
+        });
+
+        if (response.errors?.length) {
+            throw new Error(response.errors[0].message);
+        }
+
+        if (!response.data?.generarSecretoNodo) {
+            throw new Error('No fue posible generar el secreto del nodo.');
+        }
+
+        secretoGenerado.value = response.data.generarSecretoNodo;
+    } catch (mutationError) {
+        errorSecreto.value = mutationError instanceof Error
+            ? mutationError.message
+            : 'Error inesperado al generar el secreto.';
+    } finally {
+        generandoSecreto.value = false;
+    }
+}
 </script>
 
 <template>
@@ -61,6 +114,36 @@ const nodo = computed(() => data.value?.nodo);
                                     </a>
                                 </p>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-red-100 bg-red-50 rounded-lg p-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-800">Secreto del Nodo</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    Genera o regenera el secreto operativo del nodo.
+                                </p>
+                            </div>
+                            <button
+                                class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition font-medium text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+                                :disabled="generandoSecreto"
+                                @click="generarSecretoNodo">
+                                {{ generandoSecreto ? 'Procesando...' : (secretoGenerado ? 'Regenerar secreto' : 'Generar secreto') }}
+                            </button>
+                        </div>
+
+                        <p v-if="errorSecreto" class="text-sm text-red-600 mt-4">
+                            {{ errorSecreto }}
+                        </p>
+
+                        <div v-if="secretoGenerado" class="mt-4 bg-white border border-red-200 rounded p-4">
+                            <p class="text-xs font-semibold text-gray-700 mb-2">
+                                Secreto vigente (guárdalo de forma segura):
+                            </p>
+                            <p class="font-mono text-xs break-all text-gray-800">
+                                {{ secretoGenerado.secreto }}
+                            </p>
                         </div>
                     </div>
 

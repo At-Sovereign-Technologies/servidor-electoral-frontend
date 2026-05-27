@@ -29,6 +29,8 @@ type Query {
 }
 
 type Mutation {
+  crearNodo(eleccionId: ID!): Nodo!
+  generarSecretoNodo(nodoId: ID!): NodoSecreto!
   generarSecretoPunto(puntoId: ID!): PuntoSecreto!
   generarCredencialesTerminal(terminalId: ID!): TerminalCredenciales!
 }
@@ -96,6 +98,11 @@ type TerminalCredenciales {
   secreto: String!
   clavePublica: String!
   clavePrivada: String!
+}
+
+type NodoSecreto {
+  nodoId: ID!
+  secreto: String!
 }
 
 type Votante {
