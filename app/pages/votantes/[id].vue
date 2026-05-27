@@ -56,10 +56,10 @@ const votante = computed(() => data.value?.votante);
                             <div>
                                 <span class="font-medium text-gray-700">Terminal:</span>
                                 <p>
-                                    <NuxtLink :to="`/terminales/${votante.terminalId}`"
+                                    <a :href="`/terminales/${votante.terminalId}`"
                                         class="text-red-500 hover:underline">
                                         Terminal #{{ votante.terminalId }}
-                                    </NuxtLink>
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -67,14 +67,14 @@ const votante = computed(() => data.value?.votante);
 
                     <!-- Back Link -->
                     <div>
-                        <NuxtLink :to="`/terminales/${votante.terminalId}/votantes`"
+                        <a :href="`/terminales/${votante.terminalId}/votantes`"
                             class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-500 transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7"></path>
                             </svg>
                             Volver a Votantes
-                        </NuxtLink>
+                        </a>
                     </div>
                 </div>
             </div>

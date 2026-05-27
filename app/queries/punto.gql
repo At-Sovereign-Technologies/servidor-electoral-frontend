@@ -26,3 +26,10 @@ query GetPunto($id: ID!) {
         }
     }
 }
+
+mutation GenerarSecretoPunto($puntoId: ID!) {
+    generarSecretoPunto(puntoId: $puntoId) {
+        puntoId
+        secreto
+    }
+}

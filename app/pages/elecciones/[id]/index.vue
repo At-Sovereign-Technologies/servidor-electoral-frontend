@@ -1,10 +1,17 @@
 <script setup lang="ts">
 const route = useRoute();
-const id = route.params.id as string;
+const id = ref(route.params.id as string);
+watch(
+    () => route.params.id,
+    (newId) => { id.value = newId as string; }
+);
+
+const variables = reactive({ id: id.value });
+watch(id, (newId) => { variables.id = newId; });
 
 const { data, pending, error } = await useAsyncGql({
     operation: 'GetEleccion',
-    variables: { id }
+    variables
 });
 
 const eleccion = computed(() => data.value?.eleccion);
@@ -73,7 +80,7 @@ const formatDate = (timestamp: number) => {
                     <!-- Summary Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Candidatos Summary -->
-                        <NuxtLink :to="`/elecciones/${id}/candidatos`"
+                        <a :href="`/elecciones/${id}/candidatos`"
                             class="border border-gray-200 rounded-lg p-5 hover:shadow-md transition group">
                             <div class="flex justify-between items-center mb-3">
                                 <h4 class="text-lg font-semibold text-gray-800 group-hover:text-red-500 transition">
@@ -99,10 +106,10 @@ const formatDate = (timestamp: number) => {
                             <p class="text-xs text-red-500 font-medium mt-3 group-hover:underline">
                                 Ver todos →
                             </p>
-                        </NuxtLink>
+                        </a>
 
                         <!-- Puntos Summary -->
-                        <NuxtLink :to="`/elecciones/${id}/puntos`"
+                        <a :href="`/elecciones/${id}/puntos`"
                             class="border border-gray-200 rounded-lg p-5 hover:shadow-md transition group">
                             <div class="flex justify-between items-center mb-3">
                                 <h4 class="text-lg font-semibold text-gray-800 group-hover:text-red-500 transition">
@@ -130,10 +137,10 @@ const formatDate = (timestamp: number) => {
                             <p class="text-xs text-red-500 font-medium mt-3 group-hover:underline">
                                 Ver todos →
                             </p>
-                        </NuxtLink>
+                        </a>
 
                         <!-- Nodos Summary -->
-                        <NuxtLink :to="`/elecciones/${id}/nodos`"
+                        <a :href="`/elecciones/${id}/nodos`"
                             class="border border-gray-200 rounded-lg p-5 hover:shadow-md transition group">
                             <div class="flex justify-between items-center mb-3">
                                 <h4 class="text-lg font-semibold text-gray-800 group-hover:text-red-500 transition">
@@ -161,19 +168,19 @@ const formatDate = (timestamp: number) => {
                             <p class="text-xs text-red-500 font-medium mt-3 group-hover:underline">
                                 Ver todos →
                             </p>
-                        </NuxtLink>
+                        </a>
                     </div>
 
                     <!-- Back Button -->
                     <div>
-                        <NuxtLink to="/elecciones"
+                        <a href="/elecciones"
                             class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-500 transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7"></path>
                             </svg>
                             Volver a Elecciones
-                        </NuxtLink>
+                        </a>
                     </div>
                 </div>
             </div>

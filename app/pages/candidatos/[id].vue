@@ -68,10 +68,10 @@ const candidato = computed(() => data.value?.candidato);
                                 <div>
                                     <span class="font-medium text-gray-700">ID de Elección:</span>
                                     <p>
-                                        <NuxtLink :to="`/elecciones/${candidato.eleccionId}`"
+                                        <a :href="`/elecciones/${candidato.eleccionId}`"
                                             class="text-red-500 hover:underline">
                                             {{ candidato.eleccionId }}
-                                        </NuxtLink>
+                                        </a>
                                     </p>
                                 </div>
                             </div>
@@ -80,14 +80,14 @@ const candidato = computed(() => data.value?.candidato);
 
                     <!-- Back Link -->
                     <div>
-                        <NuxtLink :to="`/elecciones/${candidato.eleccionId}/candidatos`"
+                        <a :href="`/elecciones/${candidato.eleccionId}/candidatos`"
                             class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-500 transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7"></path>
                             </svg>
                             Volver a Candidatos
-                        </NuxtLink>
+                        </a>
                     </div>
                 </div>
             </div>

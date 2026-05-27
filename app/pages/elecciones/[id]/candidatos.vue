@@ -75,9 +75,9 @@ watch(searchQuery, () => { currentPage.value = 1; });
 
                 <!-- Candidatos Grid -->
                 <div v-else>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <NuxtLink v-for="candidato in paginatedCandidatos" :key="candidato.id"
-                            :to="`/candidatos/${candidato.id}`"
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <a v-for="candidato in paginatedCandidatos" :key="candidato.id"
+                            :href="`/candidatos/${candidato.id}`"
                             class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition group">
                             <div class="flex items-center gap-4">
                                 <div v-if="candidato.fotoUrl"
@@ -99,7 +99,7 @@ watch(searchQuery, () => { currentPage.value = 1; });
                                     <p class="text-xs text-gray-400 mt-1">Doc: {{ candidato.documento }}</p>
                                 </div>
                             </div>
-                        </NuxtLink>
+                        </a>
                     </div>
 
                     <!-- Pagination -->
@@ -124,14 +124,14 @@ watch(searchQuery, () => { currentPage.value = 1; });
 
                 <!-- Back Link -->
                 <div class="mt-6">
-                    <NuxtLink :to="`/elecciones/${eleccionId}`"
+                    <a :href="`/elecciones/${eleccionId}`"
                         class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-500 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 19l-7-7 7-7"></path>
                         </svg>
                         Volver a la Elección
-                    </NuxtLink>
+                    </a>
                 </div>
             </div>
         </div>

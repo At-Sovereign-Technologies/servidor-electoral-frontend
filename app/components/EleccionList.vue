@@ -85,10 +85,10 @@ const formatDate = (timestamp: number) => {
                                 </p>
                             </div>
                         </div>
-                        <NuxtLink :to="`/elecciones/${eleccion.id}`"
+                        <a :href="`/elecciones/${eleccion.id}`"
                             class="ml-4 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition font-medium text-sm whitespace-nowrap">
                             Detalles
-                        </NuxtLink>
+                        </a>
                     </div>
                 </div>
             </div>

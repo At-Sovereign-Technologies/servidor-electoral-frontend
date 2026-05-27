@@ -60,10 +60,10 @@ const jurado = computed(() => data.value?.jurado);
                             <div>
                                 <span class="font-medium text-gray-700">Punto de votación:</span>
                                 <p>
-                                    <NuxtLink :to="`/puntos/${jurado.puntoId}`"
+                                    <a :href="`/puntos/${jurado.puntoId}`"
                                         class="text-red-500 hover:underline">
                                         {{ jurado.puntoId }}
-                                    </NuxtLink>
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -71,14 +71,14 @@ const jurado = computed(() => data.value?.jurado);
 
                     <!-- Back Link -->
                     <div>
-                        <NuxtLink :to="`/puntos/${jurado.puntoId}/jurados`"
+                        <a :href="`/puntos/${jurado.puntoId}/jurados`"
                             class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-500 transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7"></path>
                             </svg>
                             Volver a Jurados
-                        </NuxtLink>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -96,10 +96,10 @@ watch(filterActivo, () => { currentPage.value = 1; });
                                         </p>
                                     </div>
                                 </div>
-                                <NuxtLink :to="`/terminales/${terminal.id}`"
+                                <a :href="`/terminales/${terminal.id}`"
                                     class="ml-4 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition font-medium text-sm whitespace-nowrap">
                                     Detalles
-                                </NuxtLink>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -126,14 +126,14 @@ watch(filterActivo, () => { currentPage.value = 1; });
 
                 <!-- Back Link -->
                 <div class="mt-6">
-                    <NuxtLink :to="`/puntos/${puntoId}`"
+                    <a :href="`/puntos/${puntoId}`"
                         class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-500 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 19l-7-7 7-7"></path>
                         </svg>
                         Volver al Punto de Votación
-                    </NuxtLink>
+                    </a>
                 </div>
             </div>
         </div>

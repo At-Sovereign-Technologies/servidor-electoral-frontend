@@ -21,3 +21,12 @@ query GetTerminal($id: ID!) {
         }
     }
 }
+
+mutation GenerarCredencialesTerminal($terminalId: ID!) {
+    generarCredencialesTerminal(terminalId: $terminalId) {
+        terminalId
+        secreto
+        clavePublica
+        clavePrivada
+    }
+}

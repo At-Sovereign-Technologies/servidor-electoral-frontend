@@ -55,10 +55,10 @@ const nodo = computed(() => data.value?.nodo);
                             <div>
                                 <span class="font-medium text-gray-700">Elección:</span>
                                 <p>
-                                    <NuxtLink :to="`/elecciones/${nodo.eleccionId}`"
+                                    <a :href="`/elecciones/${nodo.eleccionId}`"
                                         class="text-red-500 hover:underline">
                                         {{ nodo.eleccionId }}
-                                    </NuxtLink>
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -66,14 +66,14 @@ const nodo = computed(() => data.value?.nodo);
 
                     <!-- Back Link -->
                     <div>
-                        <NuxtLink :to="`/elecciones/${nodo.eleccionId}/nodos`"
+                        <a :href="`/elecciones/${nodo.eleccionId}/nodos`"
                             class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-red-500 transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 19l-7-7 7-7"></path>
                             </svg>
                             Volver a Nodos
-                        </NuxtLink>
+                        </a>
                     </div>
                 </div>
             </div>
